@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Exit Clearance Management System</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    height: 100%;
+    background: #fff;
+    font-family: Tahoma, Verdana, Arial, sans-serif;
+    font-size: 13px;
+    color: #333;
+  }
+  .app-frame {
+    width: 100%;
+    min-height: 100vh;
+    margin: 0;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+  }
+  .content {
+    flex: 1;
+  }
+
+  /* Browser chrome bar */
+  .browser-bar {
+    background: #2b2b2b;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 14px;
+    color: #ccc;
+  }
+  .browser-bar .nav-icons {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 16px;
+    color: #aaa;
+  }
+  .browser-bar .url-bar {
+    flex: 1;
+    background: #1f1f1f;
+    border-radius: 16px;
+    padding: 6px 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: #ddd;
+  }
+  .browser-bar .url-bar .lock {
+    font-size: 12px;
+    color: #999;
+  }
+  .browser-bar .right-icons {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 16px;
+  }
+  .browser-bar .profile-circle {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #555;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: #ccc;
+  }
+  .browser-bar .copilot {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #3a3a3a;
+    padding: 5px 12px;
+    border-radius: 14px;
+    font-size: 13px;
+    color: #eee;
+  }
+
+  /* Top tab bar */
+  .top-tabs {
+    background: #2b2b2b;
+    color: #ccc;
+    padding: 6px 16px;
+    display: flex;
+    gap: 22px;
+    font-size: 12px;
+  }
+  .top-tabs span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: default;
+  }
+
+  /* Header */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 22px;
+    border-bottom: 1px solid #ddd;
+  }
+  .header h1 {
+    color: #1d6fae;
+    font-size: 22px;
+    font-weight: bold;
+    margin: 0;
+    letter-spacing: 0.3px;
+  }
+  .header-links {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 12.5px;
+    color: #333;
+    white-space: nowrap;
+  }
+  .header-links a {
+    color: #333;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .header-links .sep {
+    color: #bbb;
+  }
+  .icon {
+    width: 13px;
+    height: 13px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.6;
+    flex-shrink: 0;
+  }
+  .header-links > span {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  /* Notice bar */
+  .notice {
+    background: #fdf3e7;
+    border-top: 1px solid #f0c987;
+    border-bottom: 1px solid #f0c987;
+    color: #b03a2e;
+    text-align: center;
+    font-size: 12.5px;
+    padding: 6px 0;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  .notice a {
+    color: #1d6fae;
+    font-weight: bold;
+    text-decoration: underline;
+  }
+
+  /* Divider line directly under nav */
+  .divider-line {
+    height: 2px;
+    background: #333;
+    margin: 0;
+  }
+
+  /* Nav bar */
+  .nav {
+    background: #1d7bc4;
+    display: flex;
+    align-items: center;
+    padding: 0 22px;
+  }
+  .nav a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 13px;
+    padding: 10px 16px;
+    display: inline-block;
+  }
+  .nav a.active {
+    background: rgba(255,255,255,0.0);
+  }
+
+  .content {
+    padding: 16px 30px 60px 30px;
+    border-bottom: 1px solid #ccc;
+  }
+  .content h2 {
+    font-size: 15px;
+    color: #1d6fae;
+    font-weight: bold;
+    margin: 0 0 28px 0;
+  }
+
+  table.info {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  table.info td {
+    padding: 7px 4px;
+    font-size: 13px;
+    vertical-align: top;
+  }
+  table.info td.label-left {
+    text-align: right;
+    color: #333;
+    width: 22%;
+    padding-right: 8px;
+  }
+  table.info td.value-left {
+    text-align: left;
+    color: #1a1a1a;
+    width: 26%;
+    padding-right: 40px;
+  }
+  table.info td.label-right {
+    text-align: right;
+    color: #333;
+    width: 20%;
+    padding-right: 8px;
+  }
+  table.info td.value-right {
+    text-align: left;
+    color: #1a1a1a;
+    width: 32%;
+  }
+</style>
+</head>
+<body>
+
+<div class="app-frame">
+
+  <div class="top-tabs">
+    <span>📁 Talent Portal</span>
+    <span>📁 Projects</span>
+    <span>📁 AI</span>
+    <span>📁 Learnings</span>
+  </div>
+
+  <div class="header">
+    <h1>EXIT CLEARANCE MANAGEMENT SYSTEM</h1>
+    <div class="header-links">
+      <span>
+        <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+        Welcome Amarnath Chowdari
+      </span>
+      <span class="sep">|</span>
+      <a href="#">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5"/></svg>
+        Policy
+      </a>
+      <span class="sep">|</span>
+      <a href="#">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M4 4c0 9 7 16 16 16l2-4-6-2-2 2c-2-1-4-3-5-5l2-2-2-6z"/></svg>
+        Contact List
+      </a>
+      <span class="sep">|</span>
+      <a href="#">
+        <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="1"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>
+        Holiday List
+      </a>
+      <span class="sep">|</span>
+      <a href="#">
+        <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 13a7.6 7.6 0 000-2l2-1.5-2-3.4-2.3 1a7.6 7.6 0 00-1.7-1l-.3-2.6H9.9l-.3 2.6a7.6 7.6 0 00-1.7 1l-2.3-1-2 3.4L5.6 11a7.6 7.6 0 000 2l-2 1.5 2 3.4 2.3-1a7.6 7.6 0 001.7 1l.3 2.6h4.2l.3-2.6a7.6 7.6 0 001.7-1l2.3 1 2-3.4z"/></svg>
+        Support
+      </a>
+      <span class="sep">|</span>
+      <a href="#">
+        <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 015 0c0 2-2.5 2-2.5 4"/><circle cx="12" cy="17" r="0.3" fill="currentColor"/></svg>
+        FAQ
+      </a>
+      <span class="sep">|</span>
+      <a href="#">Log out</a>
+    </div>
+  </div>
+
+  <div class="notice">
+    For ECMS related issues kindly raise Incident in <a href="#">ServiceCentral</a> and select "Report an Issue" option.
+  </div>
+
+  <div class="nav">
+    <a href="#" class="active">Home</a>
+    <a href="#">Resignation Process ▾</a>
+  </div>
+
+  <div class="divider-line"></div>
+
+  <div class="content">
+    <h2>People Manager Check List Status</h2>
+
+    <table class="info">
+      <tr>
+        <td class="label-left">Employee Name (ID):</td>
+        <td class="value-left">Amarnath Chowdari (46150833)</td>
+        <td class="label-right">Global Date of Joining :</td>
+        <td class="value-right">21-Oct-2021</td>
+      </tr>
+      <tr>
+        <td class="label-left">UserId :</td>
+        <td class="value-left">amarnch</td>
+        <td class="label-right">Local Date of Joining :</td>
+        <td class="value-right">21-Oct-2021</td>
+      </tr>
+      <tr>
+        <td class="label-left">Designation:</td>
+        <td class="value-left">Consultant</td>
+        <td class="label-right">Location :</td>
+        <td class="value-right">Hyderabad</td>
+      </tr>
+      <tr>
+        <td class="label-left">SBU Name :</td>
+        <td class="value-left">FS</td>
+        <td class="label-right">People Manager :</td>
+        <td class="value-right">Revanth Pepakayala(51689_FS)</td>
+      </tr>
+      <tr>
+        <td class="label-left">BU Name :</td>
+        <td class="value-left">FS SBU Global Other Costs</td>
+        <td class="label-right">Assigned People Manager :</td>
+        <td class="value-right">Not Available</td>
+      </tr>
+      <tr>
+        <td class="label-left">Sub BU Name :</td>
+        <td class="value-left">CCA-FS-CAPPS</td>
+        <td class="label-right">Organization :</td>
+        <td class="value-right">Not Available</td>
+      </tr>
+      <tr>
+        <td class="label-left">Separation / Transfer Type :</td>
+        <td class="value-left">Resignation</td>
+        <td class="label-right">People Manager Approval Status :</td>
+        <td class="value-right">People Manager Approved</td>
+      </tr>
+      <tr>
+        <td class="label-left">Separation / Transfer Reason :</td>
+        <td class="value-left">Career growth</td>
+        <td class="label-right">People Manager Approval Date :</td>
+        <td class="value-right">30-Jun-2026</td>
+      </tr>
+      <tr>
+        <td class="label-left">Separation / Transfer Sub Reason :</td>
+        <td class="value-left">Lack of career mobility/role</td>
+        <td class="label-right">HR Lead Approval Status :</td>
+        <td class="value-right">Not Available</td>
+      </tr>
+      <tr>
+        <td class="label-left">Confirmed Resignation Date :</td>
+        <td class="value-left">26-Jun-2026</td>
+        <td class="label-right">Location Of Transfer :</td>
+        <td class="value-right">Not Available</td>
+      </tr>
+      <tr>
+        <td class="label-left">Confirmed Last Working Date :</td>
+        <td class="value-left">08-July-2026</td>
+        <td class="label-right">HR BP Name :</td>
+        <td class="value-right">Deepa Menon Shetty (46326945)</td>
+      </tr>
+      <tr>
+        <td class="label-left">Global Group ID :</td>
+        <td class="value-left">46150833</td>
+        <td class="label-right">Case Manager :</td>
+        <td class="value-right">Rutuja Sanjay Mane (46268523)</td>
+      </tr>
+    </table>
+  </div>
+
+</div>
+
+</body>
+</html>
